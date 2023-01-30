@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<doctrine-mapping
+    xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Karma8\SubscriptionNotifier\User\Domain\Model\User"
+            table="karma8_sn_users"
+            change-tracking-policy="DEFERRED_EXPLICIT">
+        <id name="id" column="id" type="uuid">
+            <generator strategy="NONE"/>
+        </id>
+
+        <field name="email" column="email" type="string" length="255" unique="true"/>
+        <field name="name" column="name" type="string" length="255"/>
+        <field name="createdAt" column="created_at" type="datetime_immutable"/>
+        <field name="confirmed" column="confirmed" type="boolean"/>
+        <field name="subscriptionEndsAt" column="subscription_ends_at" nullable="true" type="datetime_immutable"/>
+
+        <indexes>
+            <index columns="subscription_ends_at" name="subscription_ends_at_idx"/>
+        </indexes>
+    </entity>
+</doctrine-mapping>

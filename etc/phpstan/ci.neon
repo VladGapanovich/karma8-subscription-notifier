@@ -1,0 +1,7 @@
+includes:
+    - base.neon
+
+parameters:
+    symfony:
+        container_xml_path: ../../var/cache/test/Karma8_SubscriptionNotifier_Shared_Symfony_KernelTestDebugContainer.xml
+        console_application_loader: ../../tests/console-application.php

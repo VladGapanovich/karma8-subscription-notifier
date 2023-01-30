@@ -1,0 +1,4 @@
+imports:
+  - { resource: email_confirmation_status/services.yaml }
+  - { resource: shared/services.yaml }
+  - { resource: user/services.yaml }

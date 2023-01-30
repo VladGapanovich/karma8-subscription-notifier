@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<doctrine-mapping
+    xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="Karma8\SubscriptionNotifier\EmailConfirmationStatus\Domain\Model\EmailConfirmationStatus"
+            table="karma8_sn_email_confirmation_statuses"
+            change-tracking-policy="DEFERRED_EXPLICIT">
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="email" column="email" type="string" length="255" unique="true"/>
+        <field name="checked" column="checked" type="boolean"/>
+        <field name="valid" column="valid" type="boolean"/>
+    </entity>
+</doctrine-mapping>

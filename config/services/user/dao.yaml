@@ -1,0 +1,4 @@
+services:
+  Karma8\SubscriptionNotifier\User\Domain\Dao\UserDao:
+    class: Karma8\SubscriptionNotifier\User\Infrastructure\Persistence\Doctrine\Dao\DoctrineUserDao
+    autowire: true

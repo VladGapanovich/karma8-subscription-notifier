@@ -1,0 +1,80 @@
+framework:
+    messenger:
+        default_bus: command.bus
+        buses:
+            command.bus:
+                middleware:
+                    - doctrine_ping_connection
+                    - doctrine_transaction
+
+            query.bus: ~
+
+            event.bus:
+                default_middleware: allow_no_handlers
+
+        failure_transport: failed
+
+        transports:
+            sync: 'sync://'
+
+            failed:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    auto_setup: "%env(bool:MESSENGER_AUTO_SETUP)%"
+                    persistent: true
+                    exchange:
+                        name: failures
+                        type: fanout
+                    queues:
+                        failures: ~
+
+            schedule_send_user_email_about_almost_ended_subscription:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                failure_transport: schedule_send_user_email_about_almost_ended_subscription_failures
+                options:
+                    auto_setup: "%env(bool:MESSENGER_AUTO_SETUP)%"
+                    persistent: true
+                    exchange:
+                        name: schedule_send_user_email_about_almost_ended_subscription
+                        type: fanout
+                    queues:
+                        schedule_send_user_email_about_almost_ended_subscription: ~
+
+            schedule_send_user_email_about_almost_ended_subscription_failures:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    auto_setup: "%env(bool:MESSENGER_AUTO_SETUP)%"
+                    persistent: true
+                    exchange:
+                        name: schedule_send_user_email_about_almost_ended_subscription_failures
+                        type: fanout
+                    queues:
+                        schedule_send_user_email_about_almost_ended_subscription_failures: ~
+
+            send_user_email_about_almost_ended_subscription:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                failure_transport: send_user_email_about_almost_ended_subscription_failures
+                options:
+                    auto_setup: "%env(bool:MESSENGER_AUTO_SETUP)%"
+                    persistent: true
+                    exchange:
+                        name: send_user_email_about_almost_ended_subscription
+                        type: fanout
+                    queues:
+                        send_user_email_about_almost_ended_subscription: ~
+
+            send_user_email_about_almost_ended_subscription_failures:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    auto_setup: "%env(bool:MESSENGER_AUTO_SETUP)%"
+                    persistent: true
+                    exchange:
+                        name: send_user_email_about_almost_ended_subscription_failures
+                        type: fanout
+                    queues:
+                        send_user_email_about_almost_ended_subscription_failures: ~
+
+        routing:
+            Karma8\SubscriptionNotifier\User\Application\ScheduleSendUserEmailAboutAlmostEndedSubscription\ScheduleSendUserEmailAboutAlmostEndedSubscriptionCommand: schedule_send_user_email_about_almost_ended_subscription
+            Karma8\SubscriptionNotifier\User\Application\SendUserEmailAboutAlmostEndedSubscription\SendUserEmailAboutAlmostEndedSubscriptionCommand: send_user_email_about_almost_ended_subscription
+            Karma8\SubscriptionNotifier\User\Application\SendUsersEmailsAboutAlmostEndedSubscription\SendUsersEmailsAboutAlmostEndedSubscriptionCommand: sync

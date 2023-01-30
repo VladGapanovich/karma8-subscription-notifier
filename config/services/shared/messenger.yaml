@@ -1,0 +1,15 @@
+services:
+  Karma8\SubscriptionNotifier\Shared\Messenger\Cqrs\Command\CommandBus:
+    class: Karma8\SubscriptionNotifier\Shared\Messenger\Cqrs\Command\MessengerCommandBus
+    arguments:
+      - '@command.bus'
+
+  Karma8\SubscriptionNotifier\Shared\Messenger\Cqrs\Query\QueryBus:
+    class: Karma8\SubscriptionNotifier\Shared\Messenger\Cqrs\Query\MessengerQueryBus
+    arguments:
+      - '@query.bus'
+
+  Karma8\SubscriptionNotifier\Shared\Messenger\Cqrs\Event\EventBus:
+    class: Karma8\SubscriptionNotifier\Shared\Messenger\Cqrs\Event\MessengerEventBus
+    arguments:
+      - '@event.bus'

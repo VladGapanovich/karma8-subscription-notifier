@@ -1,0 +1,32 @@
+sentry:
+    dsn: '%env(SENTRY_DSN)%'
+    messenger:
+        enabled: true
+        capture_soft_fails: false
+    options:
+        environment: '%kernel.environment%'
+        release: '%env(APP_VERSION)%'
+        error_types: "E_ALL & ~E_NOTICE"
+        integrations:
+            - 'Karma8\SubscriptionNotifier\Shared\Sentry\Integration\ContextAugmentingIntegration'
+            - 'Sentry\Integration\IgnoreErrorsIntegration'
+
+services:
+    Sentry\Integration\IgnoreErrorsIntegration:
+        arguments:
+            $options:
+                ignore_exceptions:
+                    - 'Symfony\Component\Console\Exception\CommandNotFoundException'
+                    - 'Symfony\Component\HttpKernel\Exception\NotFoundHttpException'
+                    - 'Symfony\Component\Routing\Exception\ResourceNotFoundException'
+
+    Karma8\SubscriptionNotifier\Shared\Sentry\Integration\ContextAugmentingIntegration:
+        arguments:
+            $tags:
+                "app.role": "%env(string:APP_ROLE)%"
+
+    Karma8\SubscriptionNotifier\Shared\Sentry\Listener\SentryContextAppendingExceptionListener:
+        autowire: true
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onExceptionEvent, priority: 256 }
+            - { name: kernel.event_listener, event: console.error, method: onConsoleErrorEvent, priority: -32 }

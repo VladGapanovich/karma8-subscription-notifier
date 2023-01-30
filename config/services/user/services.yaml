@@ -1,0 +1,7 @@
+imports:
+  - { resource: console.yaml }
+  - { resource: dao.yaml }
+  - { resource: email.yaml }
+  - { resource: handler.yaml }
+  - { resource: repository.yaml }
+

@@ -1,0 +1,4 @@
+services:
+  Karma8\SubscriptionNotifier\EmailConfirmationStatus\Domain\Repository\EmailConfirmationStatusRepository:
+    class: Karma8\SubscriptionNotifier\EmailConfirmationStatus\Infrastructure\Persistence\Doctrine\Repository\DoctrineEmailConfirmationStatusRepository
+    autowire: true

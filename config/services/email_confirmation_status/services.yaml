@@ -1,0 +1,9 @@
+imports:
+  - { resource: repository.yaml }
+
+services:
+  Karma8\SubscriptionNotifier\EmailConfirmationStatus\Domain\Service\EmailValidator:
+    class: Karma8\SubscriptionNotifier\EmailConfirmationStatus\Domain\Service\CachedEmailValidator
+    arguments:
+      - !service { class: Karma8\SubscriptionNotifier\EmailConfirmationStatus\Infrastructure\EmailValidator\ApiEmailValidator }
+      - '@Karma8\SubscriptionNotifier\EmailConfirmationStatus\Domain\Repository\EmailConfirmationStatusRepository'

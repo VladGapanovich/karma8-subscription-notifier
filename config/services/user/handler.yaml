@@ -1,0 +1,9 @@
+services:
+  Karma8\SubscriptionNotifier\User\Application\ScheduleSendUserEmailAboutAlmostEndedSubscription\ScheduleSendUserEmailAboutAlmostEndedSubscriptionCommandHandler:
+    autowire: true
+
+  Karma8\SubscriptionNotifier\User\Application\SendUserEmailAboutAlmostEndedSubscription\SendUserEmailAboutAlmostEndedSubscriptionCommandHandler:
+    autowire: true
+
+  Karma8\SubscriptionNotifier\User\Application\SendUsersEmailsAboutAlmostEndedSubscription\SendUsersEmailsAboutAlmostEndedSubscriptionCommandHandler:
+    autowire: true

@@ -1,0 +1,3 @@
+services:
+  Karma8\SubscriptionNotifier\User\Domain\Email\UserSubscriptionAlmostEndsEmailSender:
+    class: Karma8\SubscriptionNotifier\User\Infrastructure\EmailSender\RealUserSubscriptionAlmostEndsEmailSender

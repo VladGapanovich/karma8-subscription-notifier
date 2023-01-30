@@ -1,0 +1,30 @@
+doctrine:
+    dbal:
+        connections:
+            default:
+                url: '%env(resolve:DEFAULT_DATABASE_DSN)%'
+                mapping_types:
+                    enum: string
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+
+        entity_managers:
+            default:
+                connection: default
+                auto_mapping: false
+                entity_listener_resolver: ~
+                mappings:
+                    email_confirmation_status:
+                        type: xml
+                        dir: "%kernel.project_dir%/src/EmailConfirmationStatus/Infrastructure/Persistence/Doctrine/Mapping"
+                        prefix: "Karma8\\SubscriptionNotifier\\EmailConfirmationStatus\\Domain\\Model"
+                    user:
+                        type: xml
+                        dir: "%kernel.project_dir%/src/User/Infrastructure/Persistence/Doctrine/Mapping"
+                        prefix: "Karma8\\SubscriptionNotifier\\User\\Domain\\Model"
+
+when@prod:
+    doctrine:
+        orm:
+            metadata_cache_driver: apc

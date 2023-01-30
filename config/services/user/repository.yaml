@@ -1,0 +1,4 @@
+services:
+  Karma8\SubscriptionNotifier\User\Domain\Repository\UserRepository:
+    class: Karma8\SubscriptionNotifier\User\Infrastructure\Persistence\Doctrine\Repository\DoctrineUserRepository
+    autowire: true

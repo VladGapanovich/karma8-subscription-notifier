@@ -1,0 +1,4 @@
+services:
+  Karma8\SubscriptionNotifier\User\UI\Console\SendUsersEmailsAboutAlmostEndedSubscriptionConsoleCommand:
+    autoconfigure: true
+    autowire: true
