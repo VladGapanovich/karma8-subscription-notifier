@@ -28,20 +28,28 @@ final class DoctrineUserDao implements UserDao
      */
     public function getUserIdsSubscriptionEndsInPeriod(Period $period, int $batchSize): Generator
     {
-        $qb = $this->connection->createQueryBuilder()
+        $qb = $this->connection->createQueryBuilder();
+        $expr = $qb->expr();
+        $qb = $qb
             ->select('user.id as id')
             ->from('karma8_sn_users', 'user')
-            ->innerJoin(
+            ->leftJoin(
                 'user',
                 'karma8_sn_email_confirmation_statuses',
                 'email_confirmation_status',
                 'user.email = email_confirmation_status.email',
             )
             ->andWhere('user.confirmed = :confirmed')
-            ->andWhere('email_confirmation_status.valid = :valid')
+            ->andWhere(
+                $expr->or(
+                    'email_confirmation_status.checked = :checked',
+                    'email_confirmation_status.valid = :valid'
+                ),
+            )
             ->andWhere(sprintf('users.subscription_ends_at %s :fromDate', $period->bounds->isStartIncluded() ? '>=' : '>'))
             ->andWhere(sprintf('users.subscription_ends_at %s :tillDate', $period->bounds->isEndIncluded() ? '<=' : '<'))
             ->setParameter('confirmed', true)
+            ->setParameter('checked', false)
             ->setParameter('valid', true)
             ->setParameter('fromDate', $period->startDate->format('Y-m-d H:i:s'))
             ->setParameter('tillDate', $period->endDate->format('Y-m-d H:i:s'));
